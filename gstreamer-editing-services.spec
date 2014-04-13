@@ -6,12 +6,12 @@
 
 Summary:	GStreamer Editing Services
 Name:		gstreamer-editing-services
-Version:	1.1.90
-Release:	1
+Version:	1.2.0
+Release:	0.1
 License:	LGPL
 Group:		Applications/Multimedia
 Source0:	http://gstreamer.freedesktop.org/src/gstreamer-editing-services/%{name}-%{version}.tar.xz
-# Source0-md5:	5e5448c588d1e401fae4cbceafc81e74
+# Source0-md5:	0f77372c7e12395db68b2e1399490b31
 URL:		http://gnonlin.sourceforge.net/
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
 BuildRequires:	gstreamer-plugins-base-devel >= %{gstpb_req_ver}
@@ -30,15 +30,18 @@ for making a video editor (but not only that).
 %setup -q
 
 %build
+%if 0
 %{__libtoolize}
-%{__aclocal} -I common/m4
+%{__aclocal} -I m4 -I common/m4
 %{__autoheader}
 %{__automake}
 %{__autoconf}
+%endif
+ulimit -c unlimited
 %configure \
 	--disable-silent-rules	\
 	--disable-static
-%{__make} -j1
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
