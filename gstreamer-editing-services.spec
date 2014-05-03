@@ -6,14 +6,16 @@
 
 Summary:	GStreamer Editing Services
 Name:		gstreamer-editing-services
-Version:	1.2.0
+Version:	1.2.1
 Release:	0.1
 License:	LGPL
 Group:		Applications/Multimedia
 Source0:	http://gstreamer.freedesktop.org/src/gstreamer-editing-services/%{name}-%{version}.tar.xz
-# Source0-md5:	0f77372c7e12395db68b2e1399490b31
+# Source0-md5:	6353b8d0e63e53dfe9d5117bc6984e1c
 URL:		http://gnonlin.sourceforge.net/
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
+# required at buildtime, without it g-ir-scanner crashes
+BuildRequires:	gstreamer-plugins-base >= %{gstpb_req_ver}
 BuildRequires:	gstreamer-plugins-base-devel >= %{gstpb_req_ver}
 BuildRequires:	rpm-gstreamerprov
 Requires:	gstreamer >= %{gst_req_ver}
@@ -30,14 +32,11 @@ for making a video editor (but not only that).
 %setup -q
 
 %build
-%if 0
 %{__libtoolize}
 %{__aclocal} -I m4 -I common/m4
 %{__autoheader}
 %{__automake}
 %{__autoconf}
-%endif
-ulimit -c unlimited
 %configure \
 	--disable-silent-rules	\
 	--disable-static
@@ -49,7 +48,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{gst_major_ver}/*.la
+#%{__rm} $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{gst_major_ver}/*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -57,5 +56,5 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README RELEASE
-%attr(755,root,root) %{_libdir}/gstreamer-%{gst_major_ver}/libgnl.so
+#%attr(755,root,root) %{_libdir}/gstreamer-%{gst_major_ver}/libgnl.so
 
