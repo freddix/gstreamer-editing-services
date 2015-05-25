@@ -6,12 +6,12 @@
 
 Summary:	GStreamer Editing Services
 Name:		gstreamer-editing-services
-Version:	1.2.1
+Version:	1.4.0
 Release:	0.1
 License:	LGPL
 Group:		Applications/Multimedia
 Source0:	http://gstreamer.freedesktop.org/src/gstreamer-editing-services/%{name}-%{version}.tar.xz
-# Source0-md5:	6353b8d0e63e53dfe9d5117bc6984e1c
+# Source0-md5:	063cc8aae62c9013d078da7f3825805f
 URL:		http://gnonlin.sourceforge.net/
 BuildRequires:	gstreamer-devel >= %{gst_req_ver}
 # required at buildtime, without it g-ir-scanner crashes
